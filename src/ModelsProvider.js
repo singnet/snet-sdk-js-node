@@ -1,5 +1,5 @@
 import { PaymentChannelStateServiceClient } from './proto/state_service_grpc_pb';
-import { debug } from 'loglevel';
+// import { debug } from 'loglevel';
 
 export class ChannelModelProvider {
     /**
@@ -14,13 +14,13 @@ export class ChannelModelProvider {
      * @returns {PaymentChannelStateServiceClient}
      */
     generatePaymentChannelStateServiceClient() {
-        debug('Creating PaymentChannelStateService client', {
-            tags: ['gRPC'],
-        });
-        debug(
-            `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `,
-            { tags: ['gRPC'] }
-        );
+        // debug('Creating PaymentChannelStateService client', {
+        //     tags: ['gRPC'],
+        // });
+        // debug(
+        //     `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `,
+        //     { tags: ['gRPC'] }
+        // );
         return new PaymentChannelStateServiceClient(
             serviceEndpoint.host,
             grpcChannelCredentials

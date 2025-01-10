@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 // import { BaseServiceClient, logger } from './sdk-core';
 // import { PaymentChannelStateServiceClient } from './proto/state_service_grpc_pb';
-import { debug, error } from 'loglevel';
+// import logger from 'loglevel';
 
 class ServiceClient {
     /**
@@ -28,14 +28,14 @@ class ServiceClient {
     }
 
     _constructGrpcService(ServiceStub) {
-        debug('Creating service client', { tags: ['gRPC'] });
+        // debug('Creating service client', { tags: ['gRPC'] });
         const serviceEndpoint = this._getServiceEndpoint();
         const grpcChannelCredentials =
             this._getGrpcChannelCredentials(serviceEndpoint);
         const grpcOptions = this._generateGrpcOptions();
-        debug(`Service pointing to ${serviceEndpoint.host}, `, {
-            tags: ['gRPC'],
-        });
+        // debug(`Service pointing to ${serviceEndpoint.host}, `, {
+        //     tags: ['gRPC'],
+        // });
         return new ServiceStub(
             serviceEndpoint.host,
             grpcChannelCredentials,
@@ -96,21 +96,21 @@ class ServiceClient {
 
     _getGrpcChannelCredentials(serviceEndpoint) {
         if (serviceEndpoint.protocol === 'https:') {
-            debug('Channel credential created for https', {
-                tags: ['gRPC'],
-            });
+            // debug('Channel credential created for https', {
+            //     tags: ['gRPC'],
+            // });
             return grpc.credentials.createSsl();
         }
 
         if (serviceEndpoint.protocol === 'http:') {
-            debug('Channel credential created for http', {
-                tags: ['gRPC'],
-            });
+            // debug('Channel credential created for http', {
+            //     tags: ['gRPC'],
+            // });
             return grpc.credentials.createInsecure();
         }
 
         const errorMessage = `Protocol: ${serviceEndpoint.protocol} not supported`;
-        error(errorMessage, { tags: ['gRPC'] });
+        // logger.error(errorMessage, { tags: ['gRPC'] });
         throw new Error(errorMessage);
     }
 

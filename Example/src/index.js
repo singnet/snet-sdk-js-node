@@ -1,14 +1,18 @@
-// const SnetSDK = require('../dist'); //TODO
-// const { DefaultPaymentStrategy } = require('../dist');
+// const importSync = require('import-sync');
+// const SnetNodeSDK = require('snet-sdk-node'); //TODO
+// const { DefaultPaymentStrategy } = importSync('snet-sdk-node');
 // const service = require('./stubs/example_service_grpc_pb');
 // const messages = require('./stubs/example_service_pb');
 // const config = require('./config');
 
-import { NodeSdk } from 'snet-sdk-node';
-const { DefaultPaymentStrategy } = NodeSdk;
+// import * as pkg from 'snet-sdk-node';
+// import SnetNodeSDK from 'snet-sdk-node';
 // import service from './stubs/example_service_grpc_pb.js';
 // import messages from './stubs/example_service_pb.js';
 // import config from './config.js';
+
+// const SnetNodeSDK = require('snet-sdk-core/snet-sdk-core.min.js');
+import { SnetSDK } from 'snet-sdk-core/snet-sdk-core.min.js';
 
 const config = {
     web3Provider: 'https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID',
@@ -20,16 +24,16 @@ const config = {
     defaultGasLimit: '210000',
 };
 
-console.log('config', config);
+const sdk = new SnetSDK(config);
 
-const sdk = new SnetSDK.default(config);
+console.log('sdk', sdk);
 // const input = new messages.Numbers();
 
 const main = async (a, b) => {
     const orgId = '26072b8b6a0e448180f8c0e702ab6d2f';
     const serviceId = 'Exampleservice';
     const groupName = 'default_group';
-    const paymentStrategy = new DefaultPaymentStrategy();
+    // const paymentStrategy = new pkg.DefaultPaymentStrategy();
     const opts = {
         disableBlockchainOperations: false,
         tokenExpirationBlock: 21237532,
