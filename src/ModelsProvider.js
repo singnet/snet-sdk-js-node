@@ -1,5 +1,5 @@
 import { PaymentChannelStateServiceClient } from './proto/state_service_grpc_pb';
-import { debug } from 'loglevel';
+import { logMessage } from 'snet-sdk-core/utils/logger';
 
 export class ChannelModelProvider {
     /**
@@ -14,13 +14,8 @@ export class ChannelModelProvider {
      * @returns {PaymentChannelStateServiceClient}
      */
     generatePaymentChannelStateServiceClient() {
-        debug('Creating PaymentChannelStateService client', {
-            tags: ['gRPC'],
-        });
-        debug(
-            `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `,
-            { tags: ['gRPC'] }
-        );
+        logMessage('debug', 'ChannelModelProvider', 'Creating PaymentChannelStateService client');
+        logMessage('debug', 'ChannelModelProvider', `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `);
         return new PaymentChannelStateServiceClient(
             serviceEndpoint.host,
             grpcChannelCredentials
