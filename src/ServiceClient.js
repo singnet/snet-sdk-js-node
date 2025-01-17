@@ -1,7 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
 // import { BaseServiceClient, logger } from './sdk-core';
 // import { PaymentChannelStateServiceClient } from './proto/state_service_grpc_pb';
-import { debug, error } from 'loglevel';
 import { logMessage } from 'snet-sdk-core/utils/logger';
 
 class ServiceClient {
