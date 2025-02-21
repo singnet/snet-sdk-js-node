@@ -1,5 +1,5 @@
-import PaidCallPaymentStrategy from 'snet-sdk-core/payment_strategies/PaidCallPaymentStrategy';
-import { PaymentMetadataGenerator } from 'snet-sdk-core/utils/metadataUtils';
+import PaidCallPaymentStrategy from 'snet-sdk-core/dist/payment_strategies/PaidCallPaymentStrategy';
+import { PaymentMetadataGenerator } from 'snet-sdk-core/dist/utils/metadataUtils';
 
 class PaidCallPaymentStrategyNode extends PaidCallPaymentStrategy {
     /**

@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 // import { logger } from './core';
 import { TokenServiceClient } from './proto/token_service_grpc_pb';
-import { toBNString } from 'snet-sdk-core/utils/bignumber_helper';
+import { toBNString } from 'snet-sdk-core/dist/utils/bignumber_helper';
 import { debug, error } from 'loglevel';
 
 class ConcurrencyManager {
@@ -136,11 +136,11 @@ class ConcurrencyManager {
 
     /**
      * Generate Token service client
-     * @returns {TokenServiceClient}
+     * @returns {ServiceClient}
      */
     _generateTokenServiceClient() {
         const serviceEndpoint = this._serviceMetadata._getServiceEndpoint();
-        const grpcCredentials = this._getGrpcCredentials(serviceEndpoint);
+        const grpcCredentials = this._serviceMetadata._getGrpcCredentials(serviceEndpoint);
         return new TokenServiceClient(serviceEndpoint.host, grpcCredentials);
     }
 

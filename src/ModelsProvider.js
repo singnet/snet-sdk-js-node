@@ -4,6 +4,7 @@ import { debug } from 'loglevel';
 export class ChannelModelProvider {
     /**
      * @param {string} serviceEndpoint
+     * @param grpcChannelCredentials
      */
     constructor(serviceEndpoint, grpcChannelCredentials) {
         this.serviceEndpoint = serviceEndpoint;
@@ -18,12 +19,12 @@ export class ChannelModelProvider {
             tags: ['gRPC'],
         });
         debug(
-            `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `,
+            `PaymentChannelStateService pointing to ${this.serviceEndpoint.host}, `,
             { tags: ['gRPC'] }
         );
         return new PaymentChannelStateServiceClient(
-            serviceEndpoint.host,
-            grpcChannelCredentials
+            this.serviceEndpoint.host,
+            this.grpcChannelCredentials
         );
     }
 

@@ -1,11 +1,10 @@
 import * as grpc from '@grpc/grpc-js';
-// import { BaseServiceClient, logger } from './sdk-core';
-// import { PaymentChannelStateServiceClient } from './proto/state_service_grpc_pb';
+import { URL } from 'url';
 import { debug, error } from 'loglevel';
 
 class ServiceClient {
     /**
-     * @param {ServiceMetadataProviderWeb} metadataProvider
+     * @param {ServiceMetadataProvider} metadataProvider
      * @param {GRPCClient} ServiceStub - GRPC service client constructor
      * @param {DefaultPaymentChannelManagementStrategy} paymentChannelManagementStrategy
      */
@@ -15,9 +14,9 @@ class ServiceClient {
         paymentChannelManagementStrategy
     ) {
         this.metadataProvider = metadataProvider;
-        this._grpcService = this._constructGrpcService(ServiceStub);
         this._paymentChannelManagementStrategy =
             paymentChannelManagementStrategy;
+        this._grpcService = this._constructGrpcService(ServiceStub);
     }
 
     /**
@@ -44,7 +43,7 @@ class ServiceClient {
     }
 
     _generateGrpcOptions() {
-        if (this._options.disableBlockchainOperations) {
+        if (this.metadataProvider._options.disableBlockchainOperations) {
             return {};
         }
 
@@ -61,38 +60,25 @@ class ServiceClient {
                         next(metadata, listener);
                         return;
                     }
-                    const paymentMetadata =
-                        await this.metadataProvider.fetchPaymentMetadata(
-                            this._paymentChannelManagementStrategy
-                        );
-                    paymentMetadata.forEach((paymentMeta) => {
+                    const paymentMetadata = await this.metadataProvider.fetchPaymentMetadata(this._paymentChannelManagementStrategy);
+
+                    paymentMetadata.forEach(paymentMeta => {
                         Object.entries(paymentMeta).forEach(([key, value]) => {
-                            metadata.add(key, value);
+                            // Convert `-bin` keys to Buffer
+                            if (key.endsWith('-bin') && typeof value === 'string') {
+                                metadata.add(key, Buffer.from(value, 'base64')); // Assuming base64-encoded value
+                            } else {
+                                metadata.add(key, value);
+                            }
                         });
                     });
+
                     next(metadata, listener);
-                },
+                }
             };
             return new grpc.InterceptingCall(nextCall(options), requester);
         };
     }
-
-    // _generatePaymentChannelStateServiceClient() {
-    //     debug('Creating PaymentChannelStateService client', {
-    //         tags: ['gRPC'],
-    //     });
-    //     const serviceEndpoint = this._getServiceEndpoint();
-    //     const grpcChannelCredentials =
-    //         this._getGrpcChannelCredentials(serviceEndpoint);
-    //     debug(
-    //         `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `,
-    //         { tags: ['gRPC'] }
-    //     );
-    //     return new PaymentChannelStateServiceClient(
-    //         serviceEndpoint.host,
-    //         grpcChannelCredentials
-    //     );
-    // }
 
     _getGrpcChannelCredentials(serviceEndpoint) {
         if (serviceEndpoint.protocol === 'https:') {
@@ -116,13 +102,32 @@ class ServiceClient {
 
     async getConcurrencyTokenAndChannelId() {
         return this._paymentChannelManagementStrategy.getConcurrencyTokenAndChannelId(
-            this
+            this.metadataProvider
         );
     }
 
     setConcurrencyTokenAndChannelId(token, channelId) {
         this.metadataProvider.concurrencyManager.token = token;
         this._paymentChannelManagementStrategy.channelId = channelId;
+    }
+
+    _getServiceEndpoint() {
+        return new URL(this.metadataProvider._metadata.groups[0].endpoints[0]);
+    }
+
+    _getGrpcCredentials(serviceEndpoint) {
+        if (serviceEndpoint.protocol === 'https:') {
+            debug('Channel credential created for https', { tags: ['gRPC'] });
+            return grpc.credentials.createSsl();
+        }
+        if (serviceEndpoint.protocol === 'http:') {
+            debug('Channel credential created for http', { tags: ['gRPC'] });
+            return grpc.credentials.createInsecure();
+        }
+
+        const errorMessage = `Protocol: ${serviceEndpoint.protocol} not supported`;
+        error(errorMessage, { tags: ['gRPC'] });
+        throw new Error(errorMessage);
     }
 }
 

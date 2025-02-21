@@ -1,8 +1,9 @@
-import SnetSDK from 'snet-sdk-core';
+import SnetSDK from 'snet-sdk-core/dist';
 import PrivateKeyIdentity from './identities/PrivateKeyIdentity';
 import ServiceClient from './ServiceClient';
 import ServiceMetadataProviderNode from './ServiceMetadataProvider';
-import { DefaultPaymentStrategy } from './payment_strategies';
+import {DefaultPaymentStrategy} from './payment_strategies';
+import {isEmpty} from 'lodash';
 
 class NodeSdk extends SnetSDK {
     /**
@@ -18,7 +19,7 @@ class NodeSdk extends SnetSDK {
         ServiceStub,
         paymentChannelManagementStrategy
     ) {
-        if (isEmpty(metadataProvider) || typeof metadataProvider === 'string') {
+        if (isEmpty(this._metadataProvider) || typeof this._metadataProvider === 'string') {
             return new Error('metadata provider is empty');
         }
         let paymentStrategy = paymentChannelManagementStrategy;
@@ -26,12 +27,11 @@ class NodeSdk extends SnetSDK {
             paymentStrategy = this._constructStrategy();
         }
 
-        const serviceClient = new ServiceClient(
+        return new ServiceClient(
             serviceMetadataProvider,
             ServiceStub,
             paymentStrategy
         );
-        return serviceClient;
     }
 
     /**
@@ -39,7 +39,7 @@ class NodeSdk extends SnetSDK {
      * @param {string} serviceId
      * @param {string} [groupName]
      * @param {ServiceClientOptions} options
-     * @returns {Promise<ServiceMetadataProviderWeb>}
+     * @returns {Promise<ServiceMetadataProviderNode>}
      */
     async createServiceMetadataProvider(
         orgId,
