@@ -1,7 +1,14 @@
 {
+    "type": "module",
     "dependencies": {
+        "@grpc/grpc-js": "^1.12.6",
         "rollup": "^4.28.1",
-        "snet-sdk-node": "file:../dist"
+        "snet-sdk-core": "latest",
+        "snet-sdk-node": "latest",
+        "web3": "^4.16.0"
+    },
+    "resolutions": {
+        "@grpc/grpc-js": "1.12.6"
     },
     "scripts": {
         "build:rollup": "rollup -c --bundleConfigAsCjs",

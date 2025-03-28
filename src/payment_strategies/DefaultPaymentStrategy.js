@@ -1,7 +1,5 @@
-import DefaultPaymentStrategy from 'snet-sdk-core/payment_strategies/DefaultPaymentStrategy';
-import FreeCallPaymentStrategy from './FreeCallPaymentStrategy';
-import PrepaidPaymentStrategy from './PrepaidPaymentStrategy';
-import PaidCallPaymentStrategy from './PaidCallPaymentStrategy';
+import DefaultPaymentStrategy from 'snet-sdk-core/dist/payment_strategies/DefaultPaymentStrategy';
+import {FreeCallPaymentStrategy, PaidCallPaymentStrategy, PrepaidPaymentStrategy} from "./index";
 
 class DefaultPaymentStrategyNode extends DefaultPaymentStrategy {
     /**
@@ -17,35 +15,22 @@ class DefaultPaymentStrategyNode extends DefaultPaymentStrategy {
 
     /**
      * Get the metadata for the gRPC call with the choice of the default payment strategy
-     * @param {ServiceMetadataProvider} serviceMetadata
+     * @param {ServiceMetadataProviderNode} serviceMetadata
      * @returns {Promise<({'snet-payment-type': string}|{'snet-payment-channel-id': string}|{'snet-payment-channel-nonce': string}|{'snet-payment-channel-amount': string}|{'snet-payment-channel-signature-bin': string.base64})[]>}
      */
     async getPaymentMetadata(serviceMetadata) {
-        const freeCallPaymentStrategy = new FreeCallPaymentStrategy(
-            this._account,
-            serviceMetadata
-        );
-        const isFreeCallsAvailable =
-            await freeCallPaymentStrategy.isFreeCallAvailable();
+        const freeCallPaymentStrategy = new FreeCallPaymentStrategy(this._account, serviceMetadata);
+        const isFreeCallsAvailable = await freeCallPaymentStrategy.isFreeCallAvailable();
         let paymentStrategy;
 
         if (isFreeCallsAvailable) {
             paymentStrategy = freeCallPaymentStrategy;
         } else if (serviceMetadata.concurrencyFlag) {
-            paymentStrategy = new PrepaidPaymentStrategy(
-                this._account,
-                serviceMetadata
-            );
+            paymentStrategy = new PrepaidPaymentStrategy(this._account, serviceMetadata);
         } else {
-            paymentStrategy = new PaidCallPaymentStrategy(
-                this._account,
-                serviceMetadata
-            );
+            paymentStrategy = new PaidCallPaymentStrategy(this._account, serviceMetadata);
         }
-        const metadata = await paymentStrategy.getPaymentMetadata(
-            serviceMetadata
-        );
-        return metadata;
+        return await paymentStrategy.getPaymentMetadata(serviceMetadata);
     }
 }
 

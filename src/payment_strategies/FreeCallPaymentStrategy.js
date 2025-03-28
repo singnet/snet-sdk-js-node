@@ -2,7 +2,7 @@ import * as grpc from '@grpc/grpc-js';
 import services, {
     FreeCallStateServiceService,
 } from '../proto/state_service_grpc_pb';
-import FreeCallPaymentStrategy from 'snet-sdk-core/payment_strategies/FreeCallPaymentStrategy';
+import FreeCallPaymentStrategy from 'snet-sdk-core/dist/payment_strategies/FreeCallPaymentStrategy';
 import { debug, error } from 'loglevel';
 
 class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {
@@ -10,10 +10,11 @@ class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {
      * Initializing the free-call payment strategy for web SDK
      * @param {Account} account
      * @param {number} concurrentCalls
+     * @param {serviceMetadata} serviceMetadata
      */
     constructor(account, serviceMetadata) {
         super(account, serviceMetadata);
-        this._serviceMetadata = serviceMetadata;
+        // this._serviceMetadata = serviceMetadata;
         this._freeCallStateServiceClient =
             this._generateFreeCallStateServiceClient();
         this._freeCallStateMethodDescriptor =
@@ -50,15 +51,11 @@ class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {
      */
     _getGrpcCredentials(serviceEndpoint) {
         if (serviceEndpoint.protocol === 'https:') {
-            debug('Channel credential created for https', {
-                tags: ['gRPC'],
-            });
+            debug('Channel credential created for https', { tags: ['gRPC'] });
             return grpc.credentials.createSsl();
         }
         if (serviceEndpoint.protocol === 'http:') {
-            debug('Channel credential created for http', {
-                tags: ['gRPC'],
-            });
+            debug('Channel credential created for http', { tags: ['gRPC'] });
             return grpc.credentials.createInsecure();
         }
 
