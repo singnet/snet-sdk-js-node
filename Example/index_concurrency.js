@@ -1,18 +1,16 @@
-import SnetSDK from "snet-sdk-node";
-import DefaultPaymentStrategy from "snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy.js";
-import cluster from "cluster";
-import {createRequire} from 'module';
-const require = createRequire(import.meta.url);
-const service = require('./stubs/example_service_grpc_pb.cjs')
-const messages = require('./stubs/example_service_pb.cjs')
-import config from "./config.js";
+const SnetSDK = require('snet-sdk-node');
+const service = require('./stubs/example_service_grpc_pb');
+const config = require('./config');
+const DefaultPaymentStrategy = require('snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy');
+
+const cluster = require('cluster');
 
 const sdk = new SnetSDK.default(config);
 
 const main = async () => {
-    const orgId = "26072b8b6a0e448180f8c0e702ab6d2f";
-    const serviceId = "Exampleservice";
-    const groupName = "default_group";
+    const orgId = '26072b8b6a0e448180f8c0e702ab6d2f';
+    const serviceId = 'Exampleservice';
+    const groupName = 'default_group';
     const opts = {
         concurrency: true
     };
@@ -26,7 +24,7 @@ const main = async () => {
         const {concurrencyToken, channelId} = await serviceClient.getConcurrencyTokenAndChannelId();
         const strChannelId = channelId.toString()
         const worker = cluster.fork();
-        worker.on("message", message => {
+        worker.on('message', message => {
             console.log(`Worker ${worker.id} requested concurrency token`);
             worker.send({
                 concurrencyToken,
@@ -44,9 +42,10 @@ const main = async () => {
         });
     } else {
         process.send(`Worker ${process.pid} ready to receive token`);
-        process.on("message", async (message) => {
+        process.on('message', async (message) => {
             serviceClient.setConcurrencyTokenAndChannelId(message.concurrencyToken, message.channelId);
-            const numbers = new messages.Numbers();
+
+            const numbers = new service.CalculatorService.mul.requestType();
             numbers.setA(Math.floor(Math.random() * 10) + 1);
             numbers.setB(Math.floor(Math.random() * 10) + 1);
 

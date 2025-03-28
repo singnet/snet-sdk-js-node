@@ -28,34 +28,23 @@
   "author": "SingularityNET Foundation",
   "license": "MIT",
   "dependencies": {
-    "@grpc/grpc-js": "^1.12.6",
-    "@rollup/plugin-alias": "^5.1.1",
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-json": "^6.1.0",
-    "lodash": "latest",
-    "loglevel": "^1.9.2",
-    "rollup": "^4.28.1",
-    "rollup-plugin-commonjs-named-exports": "^1.0.5",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "snet-sdk-core": "latest",
-    "web3": "^4.16.0"
-  },
-  "resolutions": {
-    "@grpc/grpc-js": "1.12.6"
+    "@grpc/grpc-js": "1.12.6",
+    "lodash": "4.17.21",
+    "loglevel": "1.9.2",
+    "snet-sdk-core": "0.1.0",
+    "web3": "4.16.0"
   },
   "peerDependencies": {
-    "google-protobuf": "^3.21.2"
+    "google-protobuf": "3.21.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.9",
-    "@babel/core": "^7.23.9",
-    "@babel/node": "^7.23.9",
-    "@babel/preset-env": "^7.23.9",
-    "@babel/register": "^7.23.7",
-    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@babel/cli": "7.26.4",
+    "@babel/core": "7.26.9",
+    "@babel/node": "7.26.0",
+    "@babel/preset-env": "7.26.9",
+    "@babel/register": "7.25.9",
     "babel-plugin-module-resolver": "^5.0.2",
-    "rimraf": "^5.0.5",
-    "rollup-plugin-cjs-es": "^3.0.0"
+    "rimraf": "6.0.1"
   },
   "engines": {
     "node": ">=18",
