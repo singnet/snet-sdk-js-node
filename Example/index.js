@@ -4,7 +4,7 @@ const require = createRequire(import.meta.url);
 const service = require('./stubs/example_service_grpc_pb.cjs')
 const messages = require('./stubs/example_service_pb.cjs')
 import config from "./config.js";
-import DefaultPaymentStrategy from "snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy.js";
+import DefaultPaymentStrategy from "snet-sdk-node/dist/paymentStrategies/DefaultPaymentStrategy.js";
 
 const sdk = new SnetSDK.default(config);
 const numbers = new messages.Numbers();

@@ -1,5 +1,5 @@
 import SnetSDK from "snet-sdk-node";
-import DefaultPaymentStrategy from "snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy.js";
+import DefaultPaymentStrategy from "snet-sdk-node/dist/paymentStrategies/DefaultPaymentStrategy.js";
 import cluster from "cluster";
 import {createRequire} from 'module';
 const require = createRequire(import.meta.url);

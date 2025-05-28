@@ -4,5 +4,7 @@ export default {
     "networkId": "1",
     "ipfsEndpoint": "https://ipfs.singularitynet.io",
     "defaultGasPrice": "4700000",
-    "defaultGasLimit": "210000"
+    "defaultGasLimit": "210000",
+    "tokenName": "FET",
+    "standType": "demo"
 }
