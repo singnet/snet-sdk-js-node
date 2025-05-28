@@ -2,7 +2,7 @@ import SnetSDK from 'snet-sdk-core/dist';
 import PrivateKeyIdentity from './identities/PrivateKeyIdentity';
 import ServiceClient from './ServiceClient';
 import ServiceMetadataProviderNode from './ServiceMetadataProvider';
-import {DefaultPaymentStrategy} from './payment_strategies';
+import {DefaultPaymentStrategy} from './paymentStrategies';
 import {isEmpty} from 'lodash';
 
 class NodeSdk extends SnetSDK {
@@ -47,10 +47,11 @@ class NodeSdk extends SnetSDK {
         groupName = null,
         options = {}
     ) {
-        const serviceMetadata = await this._metadataProvider.metadata(
+        const metadata = await this._metadataProvider.getMetadata(
             orgId,
             serviceId
         );
+        const { serviceMetadata } = metadata;
         const group = await this._serviceGroup(
             serviceMetadata,
             orgId,
@@ -62,7 +63,7 @@ class NodeSdk extends SnetSDK {
             this.account,
             orgId,
             serviceId,
-            serviceMetadata,
+            metadata,
             this._mpeContract,
             group,
             options
