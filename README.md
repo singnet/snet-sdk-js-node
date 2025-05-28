@@ -5,7 +5,11 @@ SingularityNET SDK for Node.js
   
 ## Getting Started  
   
-These instructions are for the development and use of the SingularityNET SDK for JavaScript on Node.js platform.
+These instructions are for the development and use of the SingularityNET SDK for JavaScript on Node.js platform.It is built on top of the snet-sdk-core, extending its functionality to support server specific environments.
+
+- `core` – The main SDK functionality.
+- **`nodeJS` – Node.js-specific implementations.**
+- `web` – Web (browser) integrations.
 
 ### Node.js and npm Requirements
 
@@ -22,6 +26,7 @@ The SingularityNET SDK allows you to import compiled client libraries for your s
 ```javascript
 import SnetSDK from 'snet-sdk';
 import config from './config';
+
 const sdk = new SnetSDK(config);
 ```
 
@@ -32,21 +37,26 @@ You can find a sample config below
   "web3Provider": "",
   "privateKey": "",
   "networkId": "",
-  "ipfsEndpoint": "https://ipfs.singularitynet.io",
+  "ipfsEndpoint": "https://ipfs.singularitynet.io:443",
   "defaultGasPrice": "4700000",
-  "defaultGasLimit": "210000"
+  "defaultGasLimit": "210000",
+  "tokenName": "FET",
+  "standType": "demo"
 }
 ```
-
+All config fields:
 | **Key**            | **Description**                                                                           |
 |--------------------|-------------------------------------------------------------------------------------------|
 | `web3Provider`     | The URL of the Web3 provider, used to interact with the Ethereum network.|
 | `privateKey`       | The private key of the Ethereum account used for signing transactions. Must start with 0x |
 | `networkId`        | The ID of the Ethereum network to connect to. (1 for Mainnet or 11155111 for Sepolia)|
-| `ipfsEndpoint`     | The endpoint for connecting to an SingularityNet IPFS node|
+| `ipfsEndpoint`     | The optional parameter. The endpoint for connecting to an SingularityNet IPFS node|
+| `logLevel`        | The optional parameter, `info` by default. Can be -	`debug`, `error`, `info` |
+| `rpcEndpoint`     | It is the optional field, you should provide this if you are getting block size limit exceeded error. This is usually happens when you are using any web social auth providers.|
 | `defaultGasPrice`  | The gas price (in wei) to be used for transactions.|
 | `defaultGasLimit`  | The gas limit to be set for transactions.|
-
+| `tokenName`  | The name of the token which will be used. It can assume the values `FET` and `AGIX`. |
+| `standType`  | This attribute for test networks can assume the values `demo`, `dev`, and for Mainnet, it can take on the values `prod` |
 
 Now, the instance of the sdk can be used to instantiate clients for SingularityNET services. To interact with those services, the sdk needs to be supplied with the compiled gRPC client libraries.
   
