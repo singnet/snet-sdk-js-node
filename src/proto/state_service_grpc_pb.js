@@ -1,5 +1,5 @@
 // GENERATED CODE -- DO NOT EDIT!
-/* eslint-disable */
+
 'use strict';
 var grpc = require('@grpc/grpc-js');
 var state_service_pb = require('./state_service_pb.js');
@@ -48,6 +48,28 @@ function deserialize_escrow_FreeCallStateRequest(buffer_arg) {
   return state_service_pb.FreeCallStateRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_escrow_FreeCallToken(arg) {
+  if (!(arg instanceof state_service_pb.FreeCallToken)) {
+    throw new Error('Expected argument of type escrow.FreeCallToken');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_escrow_FreeCallToken(buffer_arg) {
+  return state_service_pb.FreeCallToken.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_escrow_GetFreeCallTokenRequest(arg) {
+  if (!(arg instanceof state_service_pb.GetFreeCallTokenRequest)) {
+    throw new Error('Expected argument of type escrow.GetFreeCallTokenRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_escrow_GetFreeCallTokenRequest(buffer_arg) {
+  return state_service_pb.GetFreeCallTokenRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 // PaymentChannelStateService contains methods to get the MultiPartyEscrow
 // payment channel state.
@@ -84,6 +106,17 @@ var FreeCallStateServiceService = exports.FreeCallStateServiceService = {
     requestDeserialize: deserialize_escrow_FreeCallStateRequest,
     responseSerialize: serialize_escrow_FreeCallStateReply,
     responseDeserialize: deserialize_escrow_FreeCallStateReply,
+  },
+  getFreeCallToken: {
+    path: '/escrow.FreeCallStateService/GetFreeCallToken',
+    requestStream: false,
+    responseStream: false,
+    requestType: state_service_pb.GetFreeCallTokenRequest,
+    responseType: state_service_pb.FreeCallToken,
+    requestSerialize: serialize_escrow_GetFreeCallTokenRequest,
+    requestDeserialize: deserialize_escrow_GetFreeCallTokenRequest,
+    responseSerialize: serialize_escrow_FreeCallToken,
+    responseDeserialize: deserialize_escrow_FreeCallToken,
   },
 };
 
