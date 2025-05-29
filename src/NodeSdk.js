@@ -3,6 +3,7 @@ import PrivateKeyIdentity from './identities/PrivateKeyIdentity';
 import ServiceClient from './ServiceClient';
 import ServiceMetadataProviderNode from './ServiceMetadataProvider';
 import {DefaultPaymentStrategy} from './paymentStrategies';
+import TrainingProviderNode from './training/TrainingProvider';
 import {isEmpty} from 'lodash';
 
 class NodeSdk extends SnetSDK {
@@ -83,13 +84,14 @@ class NodeSdk extends SnetSDK {
         return new DefaultPaymentStrategy(this._account, concurrentCalls);
     }
 
-    // /**
-    //  * @param {URL} serviceEndpoint
-    //  * @returns {TrainingProviderWeb}
-    //  */
-    // createTrainingProvider(serviceEndpoint) {
-    //     return new TrainingProviderWeb(this.account, serviceEndpoint);
-    // }
+    /**
+     * @param {ServiceClient} serviceClient
+     * @returns {TrainingProviderNode}
+     */
+    createTrainingProvider(serviceClient) {
+        const serviceEndpoint = serviceClient._getServiceEndpoint()
+        return new TrainingProviderNode(this.account, serviceEndpoint, serviceClient);
+    }
 }
 
 export default NodeSdk;
