@@ -1,7 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 // import { logger } from './core';
 import { TokenServiceClient } from './proto/token_service_grpc_pb';
-import { toBNString } from 'snet-sdk-core/dist/utils/bignumber_helper';
+import { toBNString } from 'snet-sdk-core/dist/utils/bignumberHelper';
 import { debug, error } from 'loglevel';
 
 class ConcurrencyManager {

@@ -1,7 +1,7 @@
 const SnetSDK = require('snet-sdk-node');
 const service = require('./stubs/example_service_grpc_pb');
 const config = require('./config');
-const DefaultPaymentStrategy = require('snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy');
+const DefaultPaymentStrategy = require('snet-sdk-node/dist/paymentStrategies/DefaultPaymentStrategy');
 
 const sdk = new SnetSDK.default(config);
 

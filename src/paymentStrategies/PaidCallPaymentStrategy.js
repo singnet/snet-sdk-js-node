@@ -1,5 +1,5 @@
-import PaidCallPaymentStrategy from 'snet-sdk-core/dist/payment_strategies/PaidCallPaymentStrategy';
-import { PaymentMetadataGenerator, TrainingPaymentMetadataGenerator } from 'snet-sdk-core/dist/utils/metadataUtils';
+import PaidCallPaymentStrategy from 'snet-sdk-core/paymentStrategies/PaidCallPaymentStrategy';
+import { PaymentMetadataGenerator, TrainingPaymentMetadataGenerator } from 'snet-sdk-core/utils/metadataUtils';
 
 class PaidCallPaymentStrategyNode extends PaidCallPaymentStrategy {
     /**
@@ -23,8 +23,8 @@ class PaidCallPaymentStrategyNode extends PaidCallPaymentStrategy {
      * Get the metadata for the gRPC payment call
      * @returns {Promise<[{'snet-payment-type': string}, {'snet-payment-channel-id': string}, {'snet-payment-channel-nonce': string}, {'snet-payment-channel-amount': string}, {'snet-payment-channel-signature-bin': Buffer}]>}
      */
-    async getPaymentMetadata(serviceMetadata) {
-        const metadataFields = await super.getPaymentMetadata(serviceMetadata);
+    async getPaymentMetadata() {
+        const metadataFields = await super.getPaymentMetadata();
         return this.metadataGenerator.generateMetadata(metadataFields);
     }
 
