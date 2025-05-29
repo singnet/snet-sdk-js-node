@@ -1,0 +1,35 @@
+syntax = "proto3";
+package service;
+import "training.proto";
+
+message sttResp{
+  string result = 1;
+}
+
+message basicSttInput {
+  string text = 1;
+}
+
+message sttInput{
+ //  Specify that your method accepts a training.ModelID in order to support training
+ training.ModelID model_id = 1;
+ bytes speech = 2;
+}
+
+
+service ExampleService{
+   rpc stt(sttInput) returns (sttResp) {
+     option (training.dataset_description) = "Additional requirements";
+     option (training.dataset_files_type) = "png, mp4, txt, mp3";
+     option (training.dataset_type) = "zip, tar.gz";
+     option (training.dataset_max_count_files) = 100;
+     option (training.dataset_max_size_mb) = 100;
+     option (training.dataset_max_size_single_file_mb) = 10;
+     option (training.default_model_id) = "default";
+     option (training.max_models_per_user) = 5;
+   }
+
+  rpc basic_stt(basicSttInput) returns (sttResp) {
+    // basic stt method without training support
+  }
+}
