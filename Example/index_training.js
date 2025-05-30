@@ -4,7 +4,7 @@ const training_pb = require('./stubs/training_pb');
 const path = require('node:path');
 
 const config = require('./config');
-const DefaultPaymentStrategy = require('snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy');
+const DefaultPaymentStrategy = require('snet-sdk-node/paymentStrategies/DefaultPaymentStrategy');
 
 const sdk = new SnetSDK.default(config);
 
