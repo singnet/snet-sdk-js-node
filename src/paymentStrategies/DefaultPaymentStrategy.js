@@ -1,4 +1,4 @@
-import DefaultPaymentStrategy from 'snet-sdk-core/dist/paymentStrategies/DefaultPaymentStrategy';
+import DefaultPaymentStrategy from 'snet-sdk-core/paymentStrategies/DefaultPaymentStrategy';
 import {FreeCallPaymentStrategy, PaidCallPaymentStrategy, PrepaidPaymentStrategy} from "./index";
 
 class DefaultPaymentStrategyNode extends DefaultPaymentStrategy {

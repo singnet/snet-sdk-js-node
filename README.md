@@ -94,7 +94,7 @@ const SnetSDK = require('snet-sdk-node');
 const config = require('<path_to_config_file>');
 // Import the generated gRPC client library for the specific service
 const grpc = require('<path_to_generated_grpc_js_file>');
-const DefaultPaymentStrategy = require('snet-sdk-node/dist/payment_strategies/DefaultPaymentStrategy');
+const DefaultPaymentStrategy = require('snet-sdk-node/paymentStrategies/DefaultPaymentStrategy');
 const sdk = new SnetSDK.default(config);
 
 const opts = {

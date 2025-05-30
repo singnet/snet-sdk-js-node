@@ -1,4 +1,4 @@
-import SnetSDK from 'snet-sdk-core/dist';
+import SnetSDK from 'snet-sdk-core';
 import PrivateKeyIdentity from './identities/PrivateKeyIdentity';
 import ServiceClient from './ServiceClient';
 import ServiceMetadataProviderNode from './ServiceMetadataProvider';

@@ -1,6 +1,6 @@
-import TrainingProvider from 'snet-sdk-core/dist/training/TrainingProvider';
+import TrainingProvider from 'snet-sdk-core/training/TrainingProvider';
 import {TrainingModelProvider} from '../ModelsProvider';
-import PaidCallPaymentStrategyNode from '../payment_strategies/PaidCallPaymentStrategy';
+import PaidCallPaymentStrategyNode from '../paymentStrategies/PaidCallPaymentStrategy';
 import * as grpc from '@grpc/grpc-js';
 
 class TrainingProviderNode extends TrainingProvider {
