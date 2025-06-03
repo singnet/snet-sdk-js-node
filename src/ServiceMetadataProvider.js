@@ -1,7 +1,7 @@
-import ServiceMetadataProvider from 'snet-sdk-core/dist/ServiceMetadataProvider';
+import ServiceMetadataProvider from 'snet-sdk-core/ServiceMetadataProvider';
 import ConcurrencyManager from './ConcurrencyManager';
 import { ChannelModelProvider } from './ModelsProvider';
-import {debug, error} from "loglevel";
+import { debug, error } from "loglevel";
 import * as grpc from "@grpc/grpc-js";
 
 class ServiceMetadataProviderNode extends ServiceMetadataProvider {

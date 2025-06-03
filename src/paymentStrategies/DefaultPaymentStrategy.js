@@ -1,5 +1,5 @@
-import DefaultPaymentStrategy from 'snet-sdk-core/dist/payment_strategies/DefaultPaymentStrategy';
-import {FreeCallPaymentStrategy, PaidCallPaymentStrategy, PrepaidPaymentStrategy} from "./index";
+import DefaultPaymentStrategy from 'snet-sdk-core/paymentStrategies/DefaultPaymentStrategy';
+import { FreeCallPaymentStrategy, PaidCallPaymentStrategy, PrepaidPaymentStrategy } from "./index";
 
 class DefaultPaymentStrategyNode extends DefaultPaymentStrategy {
     /**
@@ -30,7 +30,7 @@ class DefaultPaymentStrategyNode extends DefaultPaymentStrategy {
         } else {
             paymentStrategy = new PaidCallPaymentStrategy(this._account, serviceMetadata);
         }
-        return await paymentStrategy.getPaymentMetadata(serviceMetadata);
+        return await paymentStrategy.getPaymentMetadata();
     }
 }
 

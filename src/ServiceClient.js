@@ -35,6 +35,7 @@ class ServiceClient {
         debug(`Service pointing to ${serviceEndpoint.host}, `, {
             tags: ['gRPC'],
         });
+
         return new ServiceStub(
             serviceEndpoint.host,
             grpcChannelCredentials,
@@ -112,7 +113,7 @@ class ServiceClient {
     }
 
     _getServiceEndpoint() {
-        return new URL(this.metadataProvider._metadata.groups[0].endpoints[0]);
+        return new URL(this.metadataProvider.group.endpoints[0]);
     }
 
     _getGrpcCredentials(serviceEndpoint) {
@@ -128,6 +129,24 @@ class ServiceClient {
         const errorMessage = `Protocol: ${serviceEndpoint.protocol} not supported`;
         error(errorMessage, { tags: ['gRPC'] });
         throw new Error(errorMessage);
+    }
+
+    _enhanceMetadataDefault(metadata, paymentMetadata) {
+        paymentMetadata.forEach((paymentMeta) => {
+            Object.entries(paymentMeta).forEach(([key, value]) => {
+                if (key.endsWith('-bin') && typeof value === 'string') {
+                    metadata.add(key, Buffer.from(value, 'base64'));
+                } else {
+                    metadata.add(key, String(value));
+                }
+            });
+        });
+
+        metadata.add(
+            "snet-payment-mpe-address",
+            this.metadataProvider._mpeContract.address
+        );
+        return metadata;
     }
 }
 

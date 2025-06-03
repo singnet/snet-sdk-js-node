@@ -1,18 +1,14 @@
 {
-    "type": "module",
-    "dependencies": {
-        "@grpc/grpc-js": "^1.12.6",
-        "rollup": "^4.28.1",
-        "snet-sdk-core": "latest",
-        "snet-sdk-node": "latest",
-        "web3": "^4.16.0"
-    },
-    "resolutions": {
-        "@grpc/grpc-js": "1.12.6"
-    },
-    "scripts": {
-        "build:rollup": "rollup -c --bundleConfigAsCjs",
-        "build": "babel index.js -d dist",
-        "start": "node dist/index.js"
-    }
+  "dependencies": {
+    "@grpc/grpc-js": "1.12.6",
+    "snet-sdk-core": "latest",
+    "snet-sdk-node": "latest",
+    "web3": "^4.16.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start:freecall": "node index_freecall.js",
+    "start:concurrency": "node index_concurrency.js",
+    "start:training": "node index_training.js"
+  }
 }

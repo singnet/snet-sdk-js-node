@@ -1,5 +1,5 @@
-import PrepaidPaymentStrategy from 'snet-sdk-core/dist/payment_strategies/PrepaidPaymentStrategy';
-import { PrepaidMetadataGenerator } from 'snet-sdk-core/dist/utils/metadataUtils';
+import PrepaidPaymentStrategy from 'snet-sdk-core/paymentStrategies/PrepaidPaymentStrategy';
+import { PrepaidMetadataGenerator } from 'snet-sdk-core/utils/metadataUtils';
 
 class PrepaidPaymentStrategyNode extends PrepaidPaymentStrategy {
     /**
@@ -21,8 +21,8 @@ class PrepaidPaymentStrategyNode extends PrepaidPaymentStrategy {
     /**
      * @returns {Promise<[{'snet-payment-type': string}, {'snet-payment-channel-id': string}, {'snet-payment-channel-nonce': string}, {'snet-prepaid-auth-token-bin': *}]>}
      */
-    async getPaymentMetadata(serviceMetadata) {
-        const metadataFields = await super.getPaymentMetadata(serviceMetadata);
+    async getPaymentMetadata() {
+        const metadataFields = await super.getPaymentMetadata();
         return this.metadataGenerator.generateMetadata(metadataFields);
     }
 }
