@@ -2,7 +2,9 @@ import SnetSDK from 'snet-sdk-core';
 import PrivateKeyIdentity from './identities/PrivateKeyIdentity';
 import ServiceClient from './ServiceClient';
 import ServiceMetadataProviderNode from './ServiceMetadataProvider';
-import { DefaultPaymentStrategy } from './payment_strategies';
+import { DefaultPaymentStrategy } from './paymentStrategies';
+import TrainingProviderNode from './training/TrainingProvider';
+import { isEmpty } from 'lodash';
 
 class NodeSdk extends SnetSDK {
     /**
@@ -18,7 +20,7 @@ class NodeSdk extends SnetSDK {
         ServiceStub,
         paymentChannelManagementStrategy
     ) {
-        if (isEmpty(metadataProvider) || typeof metadataProvider === 'string') {
+        if (isEmpty(this._metadataProvider) || typeof this._metadataProvider === 'string') {
             return new Error('metadata provider is empty');
         }
         let paymentStrategy = paymentChannelManagementStrategy;
@@ -26,12 +28,11 @@ class NodeSdk extends SnetSDK {
             paymentStrategy = this._constructStrategy();
         }
 
-        const serviceClient = new ServiceClient(
+        return new ServiceClient(
             serviceMetadataProvider,
             ServiceStub,
             paymentStrategy
         );
-        return serviceClient;
     }
 
     /**
@@ -39,7 +40,7 @@ class NodeSdk extends SnetSDK {
      * @param {string} serviceId
      * @param {string} [groupName]
      * @param {ServiceClientOptions} options
-     * @returns {Promise<ServiceMetadataProviderWeb>}
+     * @returns {Promise<ServiceMetadataProviderNode>}
      */
     async createServiceMetadataProvider(
         orgId,
@@ -47,10 +48,11 @@ class NodeSdk extends SnetSDK {
         groupName = null,
         options = {}
     ) {
-        const serviceMetadata = await this._metadataProvider.metadata(
+        const metadata = await this._metadataProvider.getMetadata(
             orgId,
             serviceId
         );
+        const { serviceMetadata } = metadata;
         const group = await this._serviceGroup(
             serviceMetadata,
             orgId,
@@ -62,7 +64,7 @@ class NodeSdk extends SnetSDK {
             this.account,
             orgId,
             serviceId,
-            serviceMetadata,
+            metadata,
             this._mpeContract,
             group,
             options
@@ -82,13 +84,14 @@ class NodeSdk extends SnetSDK {
         return new DefaultPaymentStrategy(this._account, concurrentCalls);
     }
 
-    // /**
-    //  * @param {URL} serviceEndpoint
-    //  * @returns {TrainingProviderWeb}
-    //  */
-    // createTrainingProvider(serviceEndpoint) {
-    //     return new TrainingProviderWeb(this.account, serviceEndpoint);
-    // }
+    /**
+     * @param {ServiceClient} serviceClient
+     * @returns {TrainingProviderNode}
+     */
+    createTrainingProvider(serviceClient) {
+        const serviceEndpoint = serviceClient._getServiceEndpoint()
+        return new TrainingProviderNode(this.account, serviceEndpoint, serviceClient);
+    }
 }
 
 export default NodeSdk;

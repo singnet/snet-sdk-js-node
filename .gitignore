@@ -85,7 +85,8 @@ docs
 
 ### misc
 tmp
-_example
+
+.cjsescache
 
 ### lock files
 package-lock.json

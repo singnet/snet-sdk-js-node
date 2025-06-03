@@ -10,14 +10,17 @@ class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {
      * Initializing the free-call payment strategy for web SDK
      * @param {Account} account
      * @param {number} concurrentCalls
+     * @param {serviceMetadata} serviceMetadata
      */
     constructor(account, serviceMetadata) {
         super(account, serviceMetadata);
-        this._serviceMetadata = serviceMetadata;
+        // this._serviceMetadata = serviceMetadata;
         this._freeCallStateServiceClient =
             this._generateFreeCallStateServiceClient();
         this._freeCallStateMethodDescriptor =
             this._generateFreeCallStateMethodDescriptor();
+        this._freeCallTokenMethodDescriptor =
+            this._generateFreeCallTokenMethodDescriptor();
     }
 
     /**
@@ -40,6 +43,14 @@ class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {
      */
     _generateFreeCallStateMethodDescriptor() {
         return FreeCallStateServiceService.getFreeCallsAvailable;
+    }
+
+    /**
+     * @returns {MethodDescriptor}
+     * @private
+     */
+    _generateFreeCallTokenMethodDescriptor() {
+        return FreeCallStateServiceService.getFreeCallToken;
     }
 
     /**
