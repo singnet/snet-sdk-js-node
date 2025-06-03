@@ -1,14 +1,14 @@
 {
-    "dependencies": {
-        "@grpc/grpc-js": "1.12.6",
-        "snet-sdk-core": "latest",
-        "snet-sdk-node": "latest",
-        "web3": "^4.16.0"
-    },
-    "scripts": {
-        "start": "node index.js",
-        "start:freecall": "node index_freecall.js",
-        "start:concurrency": "node index_concurrency.js",
-        "start:training": "node index_training.js"
-    }
+  "dependencies": {
+    "@grpc/grpc-js": "1.12.6",
+    "snet-sdk-core": "latest",
+    "snet-sdk-node": "latest",
+    "web3": "^4.16.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start:freecall": "node index_freecall.js",
+    "start:concurrency": "node index_concurrency.js",
+    "start:training": "node index_training.js"
+  }
 }

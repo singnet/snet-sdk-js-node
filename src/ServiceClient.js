@@ -113,7 +113,7 @@ class ServiceClient {
     }
 
     _getServiceEndpoint() {
-        return new URL(this.metadataProvider._metadata.groups[0].endpoints[0]);
+        return new URL(this.metadataProvider.group.endpoints[0]);
     }
 
     _getGrpcCredentials(serviceEndpoint) {

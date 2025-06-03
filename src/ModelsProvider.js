@@ -1,6 +1,6 @@
 import { PaymentChannelStateServiceClient } from './proto/state_service_grpc_pb';
 import { debug } from 'loglevel';
-import { DaemonService, DaemonClient } from "./proto/training_daemon_grpc_pb";
+import { DaemonClient, DaemonService } from "./proto/training_daemon_grpc_pb";
 import training_daemon_pb from "./proto/training_daemon_pb";
 import training_pb from "./proto/training_pb";
 

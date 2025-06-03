@@ -13,8 +13,6 @@ const main = async () => {
     const opts = {
         disableBlockchainOperations: false,
         tokenExpiryDateBlock: 10000000,
-        tokenToMakeFreeCall: 'token',
-        email: 'your@email.ru',
         concurrency: false
     };
 

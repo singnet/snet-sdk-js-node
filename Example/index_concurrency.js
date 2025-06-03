@@ -21,7 +21,7 @@ const main = async () => {
 
     if (cluster.isMaster) {
         console.log(`Master process started with PID: ${process.pid}`);
-        const {concurrencyToken, channelId} = await serviceClient.getConcurrencyTokenAndChannelId();
+        const { concurrencyToken, channelId } = await serviceClient.getConcurrencyTokenAndChannelId();
         const strChannelId = channelId.toString()
         const worker = cluster.fork();
         worker.on('message', message => {

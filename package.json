@@ -55,7 +55,7 @@
     "./constants/*": "./dist/constants/*.js",
     "./constants": "./dist/constants/index.js",
 
-    "./paymentStrategies": "./dist/paymentStrategies/inedx.js",
+    "./paymentStrategies": "./dist/paymentStrategies/index.js",
     "./paymentStrategies/DefaultPaymentStrategy": "./dist/paymentStrategies/DefaultPaymentStrategy.js",
     "./paymentStrategies/BasePaidPaymentStrategy": "./dist/paymentStrategies/BasePaidPaymentStrategy.js",
     "./paymentStrategies/FreeCallPaymentStrategy": "./dist/paymentStrategies/FreeCallPaymentStrategy.js",

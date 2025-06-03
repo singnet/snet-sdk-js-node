@@ -1,5 +1,5 @@
 import TrainingProvider from 'snet-sdk-core/training/TrainingProvider';
-import {TrainingModelProvider} from '../ModelsProvider';
+import { TrainingModelProvider } from '../ModelsProvider';
 import PaidCallPaymentStrategyNode from '../paymentStrategies/PaidCallPaymentStrategy';
 import * as grpc from '@grpc/grpc-js';
 

@@ -1,7 +1,5 @@
 import * as grpc from '@grpc/grpc-js';
-import services, {
-    FreeCallStateServiceService,
-} from '../proto/state_service_grpc_pb';
+import services, { FreeCallStateServiceService, } from '../proto/state_service_grpc_pb';
 import FreeCallPaymentStrategy from 'snet-sdk-core/paymentStrategies/FreeCallPaymentStrategy';
 import { debug, error } from 'loglevel';
 
@@ -50,7 +48,7 @@ class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {
      * @private
      */
     _generateFreeCallTokenMethodDescriptor() {
-        return FreeCallStateServiceService.GetFreeCallToken;
+        return FreeCallStateServiceService.getFreeCallToken;
     }
 
     /**

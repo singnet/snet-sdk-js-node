@@ -2,9 +2,9 @@ import SnetSDK from 'snet-sdk-core';
 import PrivateKeyIdentity from './identities/PrivateKeyIdentity';
 import ServiceClient from './ServiceClient';
 import ServiceMetadataProviderNode from './ServiceMetadataProvider';
-import {DefaultPaymentStrategy} from './paymentStrategies';
+import { DefaultPaymentStrategy } from './paymentStrategies';
 import TrainingProviderNode from './training/TrainingProvider';
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 
 class NodeSdk extends SnetSDK {
     /**
