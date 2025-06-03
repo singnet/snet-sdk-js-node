@@ -1,6 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
 import { URL } from 'url';
-import { debug, error } from 'loglevel';
+import { logMessage } from 'snet-sdk-core/utils/logger';
 
 class ServiceClient {
     /**
@@ -27,14 +27,12 @@ class ServiceClient {
     }
 
     _constructGrpcService(ServiceStub) {
-        debug('Creating service client', { tags: ['gRPC'] });
+        logMessage('debug', 'ServiceClient', 'Creating service client');
         const serviceEndpoint = this._getServiceEndpoint();
         const grpcChannelCredentials =
             this._getGrpcChannelCredentials(serviceEndpoint);
         const grpcOptions = this._generateGrpcOptions();
-        debug(`Service pointing to ${serviceEndpoint.host}, `, {
-            tags: ['gRPC'],
-        });
+        logMessage('debug', 'ServiceClient', `Service pointing to ${serviceEndpoint.host}, `);
 
         return new ServiceStub(
             serviceEndpoint.host,
@@ -83,21 +81,17 @@ class ServiceClient {
 
     _getGrpcChannelCredentials(serviceEndpoint) {
         if (serviceEndpoint.protocol === 'https:') {
-            debug('Channel credential created for https', {
-                tags: ['gRPC'],
-            });
+            logMessage('debug', 'ServiceClient', 'Channel credential created for https');
             return grpc.credentials.createSsl();
         }
 
         if (serviceEndpoint.protocol === 'http:') {
-            debug('Channel credential created for http', {
-                tags: ['gRPC'],
-            });
+            logMessage('debug', 'ServiceClient', 'Channel credential created for http');
             return grpc.credentials.createInsecure();
         }
 
         const errorMessage = `Protocol: ${serviceEndpoint.protocol} not supported`;
-        error(errorMessage, { tags: ['gRPC'] });
+        logMessage('error', 'ServiceClient', errorMessage);
         throw new Error(errorMessage);
     }
 

@@ -1,8 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 // import { logger } from './core';
 import { TokenServiceClient } from './proto/token_service_grpc_pb';
-import { toBNString } from 'snet-sdk-core/utils/bignumberHelper';
-import { debug, error } from 'loglevel';
+import { toBNString, logMessage } from 'snet-sdk-core/utils';
 
 class ConcurrencyManager {
     /**
@@ -152,16 +151,16 @@ class ConcurrencyManager {
      */
     _getGrpcCredentials(serviceEndpoint) {
         if (serviceEndpoint.protocol === 'https:') {
-            debug('Channel credential created for https', { tags: ['gRPC'] });
+            logMessage('debug', 'ConcurrencyManager', 'Channel credential created for https');
             return grpc.credentials.createSsl();
         }
         if (serviceEndpoint.protocol === 'http:') {
-            debug('Channel credential created for http', { tags: ['gRPC'] });
+            logMessage('debug', 'ConcurrencyManager', 'Channel credential created for http');
             return grpc.credentials.createInsecure();
         }
 
         const errorMessage = `Protocol: ${serviceEndpoint.protocol} not supported`;
-        error(errorMessage, { tags: ['gRPC'] });
+        logMessage('error', 'ConcurrencyManager', errorMessage);
         throw new Error(errorMessage);
     }
 }
