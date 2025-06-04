@@ -15,7 +15,6 @@ const main = async () => {
 
     const opts = {
         disableBlockchainOperations: false,
-        tokenExpiryDateBlock: 10000000,
         concurrency: false
     };
 
