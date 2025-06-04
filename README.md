@@ -133,8 +133,7 @@ To use free calls, you need to supply additional parameters in the opts object w
 ```javascript
 const opts = {
     disableBlockchainOperations: false,
-    concurrency: false,
-    tokenExpiryDateBlock: 12345678
+    concurrency: false
 };
 ```
 
