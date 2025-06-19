@@ -19,7 +19,7 @@ export class ChannelModelProvider {
      */
     generatePaymentChannelStateServiceClient() {
         logMessage('debug', 'ChannelModelProvider', 'Creating PaymentChannelStateService client');
-        logMessage('debug', 'ChannelModelProvider', `PaymentChannelStateService pointing to ${serviceEndpoint.host}, `);
+        logMessage('debug', 'ChannelModelProvider', `PaymentChannelStateService pointing to ${this.serviceEndpoint.host}`);
         return new PaymentChannelStateServiceClient(
             this.serviceEndpoint.host,
             this.grpcChannelCredentials
