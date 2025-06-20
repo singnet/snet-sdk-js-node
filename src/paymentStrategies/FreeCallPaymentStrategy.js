@@ -2,7 +2,7 @@ import * as grpc from '@grpc/grpc-js';
 import services, {
     FreeCallStateServiceService,
 } from '../proto/state_service_grpc_pb';
-import FreeCallPaymentStrategy from 'snet-sdk-core/payment_strategies/FreeCallPaymentStrategy';
+import FreeCallPaymentStrategy from 'snet-sdk-core/paymentStrategies/FreeCallPaymentStrategy';
 import { logMessage } from 'snet-sdk-core/utils/logger';
 
 class FreeCallPaymentStrategyNode extends FreeCallPaymentStrategy {

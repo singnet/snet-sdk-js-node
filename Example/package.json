@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "@grpc/grpc-js": "1.13.4",
-    "snet-sdk-core": "0.1.5",
-    "snet-sdk-node": "2.0.0",
+    "google-protobuf": "3.21.4",
+    "snet-sdk-node": "2.0.1",
     "web3": "4.16.0"
   },
   "scripts": {

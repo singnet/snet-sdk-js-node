@@ -6,8 +6,8 @@ const DefaultPaymentStrategy = require('snet-sdk-node/paymentStrategies/DefaultP
 const sdk = new SnetSDK.default(config);
 
 const main = async () => {
-    const orgId = '26072b8b6a0e448180f8c0e702ab6d2f';
-    const serviceId = 'Exampleservice';
+    const orgId = '190625';
+    const serviceId = '190625_1';
     const groupName = 'default_group';
 
     const opts = {
@@ -25,7 +25,7 @@ const main = async () => {
             closeConnection();
             reject(err);
         } else {
-            console.log('result: ', result.getResult());
+            console.log('result: ', result.getValue());
             resolve(result);
         }
     };

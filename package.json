@@ -1,6 +1,6 @@
 {
   "name": "snet-sdk-node",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "SingularityNET SDK for Nodejs",
   "main": "./dist/index.js",
   "files": [
@@ -31,7 +31,7 @@
     "@grpc/grpc-js": "1.13.4",
     "lodash": "4.17.21",
     "loglevel": "1.9.2",
-    "snet-sdk-core": "0.1.5",
+    "snet-sdk-core": "0.1.8",
     "web3": "4.16.0"
   },
   "peerDependencies": {
