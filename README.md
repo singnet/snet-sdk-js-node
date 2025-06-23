@@ -1,4 +1,4 @@
-# snet-sdk-node
+# snet-sdk-js-node
 
 ![npm](https://img.shields.io/npm/v/snet-sdk.svg)
 
@@ -167,9 +167,9 @@ Also, you can check [Explanation of training](https://dev.singularitynet.io/docs
 ### Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the
-[tags on this repository](https://github.com/singnet/snet-sdk-node/tags).
+[tags on this repository](https://github.com/singnet/snet-sdk-js-node/tags).
 
 ## License
 
 This project is licensed under the MIT License - see the
-[LICENSE](https://github.com/singnet/snet-sdk-node/blob/master/LICENSE) file for details.
+[LICENSE](https://github.com/singnet/snet-sdk-js-node/blob/master/LICENSE) file for details.
